@@ -1,0 +1,7 @@
+0.0.2a
+8/8/2021
+Revamped entire game. Player can now interact(kill) npcs on map. Loot should now drop on the floor. Items now have atributes and requirements.
+And some other changes i didn't keep track of. Game now called Space Station Simulation(Still have to change folder and file names).
+0.0.1a
+30/5/2021
+Base game systems implemented-combat,inventory system,usable items,customizable loot system,possible to add items and enemies to game by editing files
