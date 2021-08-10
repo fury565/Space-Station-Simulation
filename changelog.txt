@@ -1,7 +1,13 @@
-0.0.2a
+0.0.3pa
+10/8/2021
+All entities can now collide with non passable tiles(walls,closed doors,etc.).Tile types now addable via textfiles.Players now able to interact with certain tiles(doors only for now).
+0.0.22pa
+9/8/2021
+Loot now visible on map and players can choose which items on ground to grab(needs visible confirmation).
+0.0.2pa
 8/8/2021
 Revamped entire game. Player can now interact(kill) npcs on map. Loot should now drop on the floor. Items now have atributes and requirements.
 And some other changes i didn't keep track of. Game now called Space Station Simulation(Still have to change folder and file names).
-0.0.1a
+0.0.1pa
 30/5/2021
 Base game systems implemented-combat,inventory system,usable items,customizable loot system,possible to add items and enemies to game by editing files

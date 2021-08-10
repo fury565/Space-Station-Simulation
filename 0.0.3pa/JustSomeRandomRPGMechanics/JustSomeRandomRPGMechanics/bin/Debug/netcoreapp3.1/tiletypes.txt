@@ -1,0 +1,5 @@
+open space,.,1,1,0
+steel wall,X,0,0,0
+steel door(closed),C,0,0,1,Open
+steel door(open),O,1,0,1,Close
+void, ,0,0,0

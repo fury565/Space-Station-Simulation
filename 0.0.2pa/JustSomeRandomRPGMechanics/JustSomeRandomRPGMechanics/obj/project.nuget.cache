@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "AoEp4fQopN0fdblpT+fA4ZKH7da6Xncb5Gu0JVauyBMm3gxYb7YaEgmry1HhrdqWizotSyHcqbnbLkAwsBI9sg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Fury\\Documents\\GitHub\\Space Station Simulation\\Space-Station-Simulation\\0.0.2a\\JustSomeRandomRPGMechanics\\JustSomeRandomRPGMechanics\\JustSomeRandomRPGMechanics.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Fury\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
+    "C:\\Users\\Fury\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
+    "C:\\Users\\Fury\\.nuget\\packages\\system.drawing.common\\5.0.0\\system.drawing.common.5.0.0.nupkg.sha512",
+    "C:\\Users\\Fury\\.nuget\\packages\\system.windows.extensions\\5.0.0\\system.windows.extensions.5.0.0.nupkg.sha512",
+    "C:\\Users\\Fury\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.17\\microsoft.netcore.app.host.win-x64.3.1.17.nupkg.sha512"
+  ],
+  "logs": []
+}

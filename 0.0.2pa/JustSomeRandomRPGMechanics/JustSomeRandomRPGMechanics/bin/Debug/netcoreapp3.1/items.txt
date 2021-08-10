@@ -1,0 +1,15 @@
+1,Food rations,Military issued standard food rations,0.3, 0.01,1,Food:40,-1
+2,Wooden crate,Old dusty wooden crate. Who knows whats inside, 10, 2,2,40, 2
+3,Water rations,Military issued standard water rations, 0.1,0.01,1,Water:40,-1
+4,backpack,de upisi nesto, 0.5, 10,2, 10,10
+5,old helmet,de upisi nesto, 0.5,0.2,0, 0,2
+6,old suit,de upisi nesto, 3, 2,0, 0,6
+7,old boots,de upisi nesto, 1.5, 1,0,0,3
+8,old gun,de upisi nesto, 3,0.3,1,PierceDamage:20,-1
+9,screwdriver,de upisi nesto, 0.02, 0.05,1, PierceDamage:5,-1
+10,hand drill,de upisi nesto, 3, 0.4,1,PierceDamage:5,BashDamage:5,-1
+12,trace gas analyser,de upisi nesto, 3, 0.4,1, ScanAreaGas:1,-1
+13,safety tethers,de upisi nesto 0.02, 0.05,1, Pull:1,-1
+14,OD jetpack,de upisi nesto, 30, 1,1, DirectionalBoost:1,-1
+900,fists,If you are seeing this then you must be using hax,0,0,1,BashDamage:2,-1
+901,claws,If you are seeing this then you must be using hax,0,0,1,PierceDamage:3:BashDamage:1,-1
