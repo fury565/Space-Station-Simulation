@@ -1,3 +1,7 @@
+0.0.35pa
+11/8/2021
+All NPCs and player have health system with basic food and water needs and healing overtime option. NPCs have both basic needs disabled and health regeneration through it as well.
+Updated screen so it can hold player information on the left side.
 0.0.3pa
 10/8/2021
 All entities can now collide with non passable tiles(walls,closed doors,etc.).Tile types now addable via textfiles.Players now able to interact with certain tiles(doors only for now).
