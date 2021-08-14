@@ -1,0 +1,4 @@
+0.0.2a
+0.0.1a
+30/5/2021
+Base game systems implemented-combat,inventory system,usable items,customizable loot system,possible to add items and enemies to game by editing files
