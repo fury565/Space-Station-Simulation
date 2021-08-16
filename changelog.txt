@@ -1,3 +1,9 @@
+0.0.4pa
+16/8/2021
+All player constructable(later possible) tiles now identified as structures(no changes to how maps are loaded from textfiles). Structures are now displayed after current map level.
+Distance is now changeable. Console size now tries to fullscreen every time you load the game. All movement and interactions are now mostly handled against structures at that location
+(instead of map itself).Tiles can now change types(instead of creating a new tile and destroying everything on the existing). Console tile now actually interacts with structure
+on which its located.
 0.0.35pa
 11/8/2021
 All NPCs and player have health system with basic food and water needs and healing overtime option. NPCs have both basic needs disabled and health regeneration through it as well.
