@@ -21,7 +21,6 @@ namespace JustSomeRandomRPGMechanics
             {
                 foreach(Distance location in structure.componentLocation)
                 {
-                    Console.Write(location.X.ToString() + location.Y.ToString() +" "+ x.ToString() + y.ToString());
                     if (location.X == x && location.Y == y)
                         return structure;
                 }

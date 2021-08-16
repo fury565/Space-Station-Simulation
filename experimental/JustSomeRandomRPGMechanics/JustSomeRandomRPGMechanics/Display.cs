@@ -42,6 +42,7 @@ namespace JustSomeRandomRPGMechanics
             {
                 Map currentLevel = MapLevelTracker.GetMapLevel(0);
                 DisplayWorldLevel(currentLevel);//add map level position variable for player if you need to support multiple levels
+                DisplayStructures();
                 MapLevelTracker.displayed=true;
             }
             HighlightLoot();
@@ -83,9 +84,34 @@ namespace JustSomeRandomRPGMechanics
                 test.AppendLine();
                 
             }
+            
             Console.WriteLine(test.ToString());
 
 
+        }
+        public static void DisplayStructures()
+        {
+            Map currentmap = MapLevelTracker.GetMapLevel(0);
+            int xoffset = Player.GetPlayer().PosX - GameVariables.MapDisplayWidth;
+            if (xoffset < 0)
+                xoffset = 0;
+            else if (xoffset > currentmap.SizeX - GameVariables.MapDisplayWidth)
+                xoffset = currentmap.SizeX - GameVariables.MapDisplayWidth;
+            int yoffset = Player.GetPlayer().PosY - GameVariables.MapDisplayHeight;
+            if (yoffset < 0)
+                yoffset = 0;
+            else if (yoffset > currentmap.SizeY - GameVariables.MapDisplayHeight)
+                yoffset = currentmap.SizeY - GameVariables.MapDisplayHeight;
+            foreach (Structure structure in MapLevelTracker.GetStructureTracker().GetStructures())
+            {
+                int counter = 0;
+                foreach(Distance location in structure.componentLocation)
+                {
+                    Console.SetCursorPosition(GameVariables.WindowWidth - GameVariables.MapDisplayWidth+xoffset + location.X, yoffset+location.Y);
+                    Console.Write(structure.designComponents[counter].GetTileDetails().mapTag);
+                    counter++;
+                }
+            }
         }
         public static void DisplayWorldEntities()
         {
@@ -173,8 +199,22 @@ namespace JustSomeRandomRPGMechanics
             foreach (LiveTarget npc in MapLevelTracker.GetNPCTracker().GetNPCS())
             {
                 Console.SetCursorPosition(GameVariables.WindowWidth - GameVariables.MapDisplayWidth+npc.PosX, npc.PosY);
-                Console.Write(MapLevelTracker.GetMapLevel(0).GetTileAtLocation(npc.PosX, npc.PosY).GetTileDetails().mapTag);
+                Structure temp = MapLevelTracker.GetStructureTracker().FindStructureWithComponentCoordinates(npc.PosX, npc.PosY);
+                if (temp == null)
+                    Console.Write(MapLevelTracker.GetMapLevel(0).GetTileAtLocation(npc.PosX, npc.PosY).GetTileDetails().mapTag);
+                else
+                    Console.Write(temp.designComponents[temp.ReturnIndexOfComponentAtLocation(npc.PosX, npc.PosY)].GetTileDetails().mapTag);
             }
+        }
+        public static void CloakPlayerPosition()
+        {
+            Player player = Player.GetPlayer();
+            Console.SetCursorPosition(GameVariables.WindowWidth - GameVariables.MapDisplayWidth + player.PosX, player.PosY);
+            Structure temp = MapLevelTracker.GetStructureTracker().FindStructureWithComponentCoordinates(player.PosX,player.PosY);
+            if (temp == null)
+                Console.Write(MapLevelTracker.GetMapLevel(0).GetTileAtLocation(player.PosX, player.PosY).GetTileDetails().mapTag);
+            else
+                Console.Write(temp.designComponents[temp.ReturnIndexOfComponentAtLocation(player.PosX, player.PosY)].GetTileDetails().mapTag);
         }
     }
 }

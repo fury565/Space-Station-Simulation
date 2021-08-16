@@ -11,6 +11,7 @@ namespace JustSomeRandomRPGMechanics
             soundPlayer.FindAllSoundFiles();
             soundPlayer.ChooseSound(0);
             soundPlayer.Play();*/
+            Console.CursorVisible = false;
             Console.SetWindowSize(GameVariables.WindowWidth, GameVariables.WindowHeight);
             Console.SetBufferSize(GameVariables.WindowWidth, GameVariables.WindowHeight);
             StoryTeller.LoadDemo();
@@ -24,7 +25,6 @@ namespace JustSomeRandomRPGMechanics
             Console.SetCursorPosition(0, Console.CursorTop);
             MapLevelTracker.CreateWorld();
             MapLevelTracker.AddMapLevelToWorld(Map.LoadDemoMap("testmap1.txt"));
-            MapLevelTracker.GetStructureTracker().DemoLoad();
             Console.SetCursorPosition(0, Console.CursorTop);
             Display.DisplayMessage("i-inventory c-character stats z-search h-help");
             Console.WriteLine("Press enter to start.");

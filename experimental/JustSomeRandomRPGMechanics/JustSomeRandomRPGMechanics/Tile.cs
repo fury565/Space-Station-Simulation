@@ -25,6 +25,10 @@ namespace JustSomeRandomRPGMechanics
         {
             return type;
         }
+        public void ChangeTileType(TileType type)
+        {
+            this.type = type;
+        }
         public TileFurniture GetFurniture()
         {
             return furniture;

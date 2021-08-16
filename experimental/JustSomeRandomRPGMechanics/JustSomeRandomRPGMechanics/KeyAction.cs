@@ -39,29 +39,25 @@ namespace JustSomeRandomRPGMechanics
             else if (pressed.Key == ConsoleKey.LeftArrow)
             {
                 Player player = Player.GetPlayer();
-                Console.SetCursorPosition(GameVariables.WindowWidth - GameVariables.MapDisplayWidth+player.PosX, player.PosY);
-                Console.Write(MapLevelTracker.GetMapLevel(0).GetTileAtLocation(player.PosX, player.PosY).GetTileDetails().mapTag);
+                Display.CloakPlayerPosition();
                 Player.GetPlayer().Move(-1, 0);
             }
             else if (pressed.Key == ConsoleKey.RightArrow)
             {
                 Player player = Player.GetPlayer();
-                Console.SetCursorPosition(GameVariables.WindowWidth - GameVariables.MapDisplayWidth+player.PosX, player.PosY);
-                Console.Write(MapLevelTracker.GetMapLevel(0).GetTileAtLocation(player.PosX, player.PosY).GetTileDetails().mapTag);
+                Display.CloakPlayerPosition();
                 Player.GetPlayer().Move(1, 0);
             }
             else if (pressed.Key == ConsoleKey.UpArrow)
             {
                 Player player = Player.GetPlayer();
-                Console.SetCursorPosition(GameVariables.WindowWidth - GameVariables.MapDisplayWidth+player.PosX, player.PosY);
-                Console.Write(MapLevelTracker.GetMapLevel(0).GetTileAtLocation(player.PosX, player.PosY).GetTileDetails().mapTag);
+                Display.CloakPlayerPosition();
                 Player.GetPlayer().Move(0,-1);
             }
             else if (pressed.Key == ConsoleKey.DownArrow)
             {
                 Player player = Player.GetPlayer();
-                Console.SetCursorPosition(GameVariables.WindowWidth - GameVariables.MapDisplayWidth+player.PosX,player.PosY);
-                Console.Write(MapLevelTracker.GetMapLevel(0).GetTileAtLocation(player.PosX, player.PosY).GetTileDetails().mapTag);
+                Display.CloakPlayerPosition();
                 Player.GetPlayer().Move(0,1);
             }
             else if (pressed.Key == ConsoleKey.G)

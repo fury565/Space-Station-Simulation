@@ -33,26 +33,17 @@ namespace JustSomeRandomRPGMechanics
         {
             int targetx = posx+ xdistance;
             int targety = posy+ydistance;
-            Map currentlevel = MapLevelTracker.GetMapLevel(0);
-            if (posy < 0 || posy >= currentlevel.SizeY || posx < 0 || posx >= currentlevel.SizeX)
-                return;
-            Display.DisplayDebugMessage("Targetable tile");
-            if (currentlevel.GetTileAtLocation(targetx,targety).GetTileDetails().Interactable)
-            {
-                if (currentlevel.GetTileAtLocation(targetx, targety).GetTileDetails().Effect == "Close")
+                Display.DisplayDebugMessage("Targetable tile");
+                Structure tempStruct = MapLevelTracker.GetStructureTracker().FindStructureWithComponentCoordinates(posx, posy);
+                if (tempStruct != null)
                 {
-                    MapLevelTracker.GetMapLevel(0).ChangeAtLocation(targetx, targety, TileCreator.ReturnTypeWithName(currentlevel.GetTileAtLocation(targetx, targety).GetTileDetails().Name.Replace("open", "closed")).mapTag);
+                    if (tempStruct.designComponents[tempStruct.ReturnIndexOfComponentAtLocation(posx, posy)].GetTileDetails().Interactable)
+                    {
+                        tempStruct.ActivateComponent(tempStruct.ReturnIndexOfComponentAtLocation(posx, posy));
+                        MapLevelTracker.displayed = false;
+                    }
                 }
-                else if (currentlevel.GetTileAtLocation(targetx, targety).GetTileDetails().Effect == "Open")
-                {
-                    MapLevelTracker.GetMapLevel(0).ChangeAtLocation(targetx, targety, TileCreator.ReturnTypeWithName(currentlevel.GetTileAtLocation(targetx, targety).GetTileDetails().Name.Replace("closed", "open")).mapTag);
-                }
-                else if(currentlevel.GetTileAtLocation(targetx, targety).GetTileDetails().Effect == "StructureCommand")
-                {
-                    MapLevelTracker.GetStructureTracker().FindStructureWithComponentCoordinates(targetx, targety).ChooseComponent();
-                }
-                MapLevelTracker.displayed = false;
-            }
+            
         }
         public override void Move(int xdistance, int ydistance)
         {

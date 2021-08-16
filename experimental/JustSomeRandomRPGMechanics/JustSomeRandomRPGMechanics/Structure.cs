@@ -23,15 +23,24 @@ namespace JustSomeRandomRPGMechanics
             designComponents.Add(component);
             componentLocation.Add(new Distance(x, y));
         }
+        public void ChangeComponent(TileType newComponent,int x,int y)
+        {
+            int index = ReturnIndexOfComponentAtLocation(x, y);
+            designComponents[index].ChangeTileType(newComponent);
+        }
+        public void ChangeComponent(TileType newComponent, int index)
+        {
+            designComponents[index].ChangeTileType(newComponent);
+        }
         public void RemoveComponent(int x,int y)
         {
 
-            int counter = ReturnIndexOfComponentAtLocation(x,y);
-            designComponents[counter].Destroy();
-            if(designComponents[counter].GetTileDetails().Name=="open space")
+            int index = ReturnIndexOfComponentAtLocation(x,y);
+            designComponents[index].Destroy();
+            if(designComponents[index].GetTileDetails().Name=="open space")
             {
-                componentLocation.Remove(componentLocation[counter]);
-                designComponents.Remove(designComponents[counter]);
+                componentLocation.Remove(componentLocation[index]);
+                designComponents.Remove(designComponents[index]);
             }
             
         }
@@ -75,6 +84,25 @@ namespace JustSomeRandomRPGMechanics
             if(activables[index].GetTileDetails().Effect=="FireLaser"){
 				//implement laser firing
 			}
+        }
+        public virtual void ActivateComponent(int index)
+        {
+            if (designComponents[index].GetTileDetails().Effect == "FireLaser")
+            {
+                //implement laser firing
+            }
+            else if (designComponents[index].GetTileDetails().Effect == "Close")
+            {
+                ChangeComponent(TileCreator.ReturnTypeWithName(designComponents[index].GetTileDetails().Name.Replace("open", "closed")),index);
+            }
+            else if (designComponents[index].GetTileDetails().Effect == "Open")
+            {
+                ChangeComponent(TileCreator.ReturnTypeWithName(designComponents[index].GetTileDetails().Name.Replace("closed","open")), index);
+            }
+            else if (designComponents[index].GetTileDetails().Effect == "StructureCommand")
+            {
+                ChooseComponent();
+            }
         }
     }
 }

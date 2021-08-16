@@ -157,38 +157,41 @@ namespace JustSomeRandomRPGMechanics
                 posx = 0;
             else if (posx >= currentlevel.SizeX)
                 posx = currentlevel.SizeX - 1;
-            if (!currentlevel.GetTileAtLocation(posx, posy).GetTileDetails().Passable)
-            {
-                if(currentlevel.GetTileAtLocation(posx, posy).GetTileDetails().Interactable)
+            Structure tempStruct = MapLevelTracker.GetStructureTracker().FindStructureWithComponentCoordinates(posx, posy);
+            if (tempStruct != null){
+                if (!tempStruct.designComponents[tempStruct.ReturnIndexOfComponentAtLocation(posx, posy)].GetTileDetails().Passable)
                 {
-                    if(currentlevel.GetTileAtLocation(posx, posy).GetTileDetails().Effect == "Close")
+                    if (tempStruct.designComponents[tempStruct.ReturnIndexOfComponentAtLocation(posx, posy)].GetTileDetails().Interactable)
                     {
-                        MapLevelTracker.GetMapLevel(0).ChangeAtLocation(posx, posy, TileCreator.ReturnTypeWithName(currentlevel.GetTileAtLocation(posx, posy).GetTileDetails().Name.Replace("open", "closed")).mapTag);
+                        tempStruct.ActivateComponent(tempStruct.ReturnIndexOfComponentAtLocation(posx, posy));
+                        MapLevelTracker.displayed = false;
                     }
-                    else if (currentlevel.GetTileAtLocation(posx, posy).GetTileDetails().Effect == "Open")
-                    {
-                        MapLevelTracker.GetMapLevel(0).ChangeAtLocation(posx, posy, TileCreator.ReturnTypeWithName(currentlevel.GetTileAtLocation(posx, posy).GetTileDetails().Name.Replace("closed", "open")).mapTag);
-                    }
-                    MapLevelTracker.displayed = false;
+                    posx = oldx;
+                    posy = oldy;
+
                 }
+                /*else//effects when entity steps on a tile
+                {
+                    if (currentlevel.GetTileAtLocation(posx, posy).GetTileDetails().Interactable)
+                    {
+                        if (currentlevel.GetTileAtLocation(posx, posy).GetTileDetails().Effect == "Close")
+                        {
+                            MapLevelTracker.GetMapLevel(0).ChangeAtLocation(posx, posy, TileCreator.ReturnTypeWithName(currentlevel.GetTileAtLocation(posx, posy).GetTileDetails().Name.Replace("open", "closed")).mapTag);
+                        }
+                        else if (currentlevel.GetTileAtLocation(posx, posy).GetTileDetails().Effect == "Open")
+                        {
+                            MapLevelTracker.GetMapLevel(0).ChangeAtLocation(posx, posy, TileCreator.ReturnTypeWithName(currentlevel.GetTileAtLocation(posx, posy).GetTileDetails().Name.Replace("closed", "open")).mapTag);
+                        }
+                    }
+                }*/
+            }
+            else if (!currentlevel.GetTileAtLocation(posx, posy).GetTileDetails().Passable)
+            {
+
                 posx = oldx;
                 posy = oldy;
-                
             }
-            /*else//effects when entity steps on a tile
-            {
-                if (currentlevel.GetTileAtLocation(posx, posy).GetTileDetails().Interactable)
-                {
-                    if (currentlevel.GetTileAtLocation(posx, posy).GetTileDetails().Effect == "Close")
-                    {
-                        MapLevelTracker.GetMapLevel(0).ChangeAtLocation(posx, posy, TileCreator.ReturnTypeWithName(currentlevel.GetTileAtLocation(posx, posy).GetTileDetails().Name.Replace("open", "closed")).mapTag);
-                    }
-                    else if (currentlevel.GetTileAtLocation(posx, posy).GetTileDetails().Effect == "Open")
-                    {
-                        MapLevelTracker.GetMapLevel(0).ChangeAtLocation(posx, posy, TileCreator.ReturnTypeWithName(currentlevel.GetTileAtLocation(posx, posy).GetTileDetails().Name.Replace("closed", "open")).mapTag);
-                    }
-                }
-            }*/
+
         }
         public void Attack(LiveTarget target)
         {

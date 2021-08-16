@@ -11,6 +11,12 @@ namespace JustSomeRandomRPGMechanics
         public int SizeX { get; private set; }
         public int SizeY { get; private set; }
         public int Level { get; private set; }
+        static int tempMinX;
+        static int tempMaxX;
+        static int tempMinY;
+        static int tempMaxY;
+        static Map tempMap;
+        static Structure tempStruct;
         public Map(int sizex,int sizey,int level)
         {
             map = new Tile[sizex, sizey];
@@ -18,6 +24,18 @@ namespace JustSomeRandomRPGMechanics
             SizeY = sizey;
             Level = level;
             FillWithEmptySpace();
+        }
+        public Map CloneMap()
+        {
+            Map copy = new Map(SizeX, SizeY, Level);
+            for (int i = 0; i < copy.SizeX; i++)
+            {
+                for (int j = 0; j < copy.SizeY; j++)
+                {
+                    copy.ChangeAtLocation(i, j, GetTileAtLocation(i, j).GetTileDetails().mapTag);
+                }
+            }
+            return copy;
         }
         public void FillWithEmptySpace()
         {
@@ -60,12 +78,8 @@ namespace JustSomeRandomRPGMechanics
             {
                 int sizex = Int32.Parse(file.ReadLine());
                 int sizey = Int32.Parse(file.ReadLine());
-                if (sizex >= GameVariables.MapDisplayWidth)
-                    sizex = GameVariables.MapDisplayWidth - 1;
-                if (sizey >= GameVariables.MapDisplayHeight)
-                    sizey = GameVariables.MapDisplayHeight - 1;
                 string level = file.ReadLine();
-                Map testmap = new Map(sizex, sizey, Int16.Parse(level));
+                tempMap = new Map(sizex, sizey, Int16.Parse(level));
                 int entity = file.Read();
                 while (entity != -1)
                 {
@@ -76,13 +90,57 @@ namespace JustSomeRandomRPGMechanics
                     }
                     else if (entity != '\r')//most windows test editors have \r\n at end of the line
                     {
-                        testmap.ChangeAtLocation(i, j, ((char)entity));
+                        tempMap.ChangeAtLocation(i, j, ((char)entity));
                         i++;
                         
                     }
                     entity = file.Read();
                 }
-                return testmap;
+                for (i = 0; i < sizex; i++)
+                {
+                    for (j = 0; j < sizey; j++)
+                    {
+                        if(tempMap.GetTileAtLocation(i,j).GetTileDetails().Name!="open space")
+                        {
+                            if (MapLevelTracker.GetStructureTracker().FindStructureWithComponentCoordinates(i, j) == null)
+                            {
+                                /*tempMinX = i;
+                                tempMinY = j;
+                                tempMaxX = i;
+                                tempMaxY = j;*/
+                                tempStruct = new Structure(i, j);
+                                DiscoverStructure(i, j);
+                                MapLevelTracker.GetStructureTracker().AddStructure(tempStruct);
+                            }
+                        }
+                    }
+                }
+                return tempMap;
+            }
+            
+        }
+        static void DiscoverStructure(int x, int y)
+        {
+            if(tempMap.GetTileAtLocation(x,y).GetTileDetails().Name != "open space"){
+                /*if (x < tempMinX)
+                    tempMinX = x;
+                else if (x > tempMaxX)
+                    tempMaxX = x;
+                if (y < tempMinY)
+                    tempMinY = y;
+                else if (y > tempMaxY)
+                    tempMaxY = y;*/
+                tempStruct.AddComponent(tempMap.GetTileAtLocation(x, y), x, y);
+                tempMap.ChangeAtLocation(x, y, '.');
+                DiscoverStructure(x - 1, y - 1);
+                DiscoverStructure(x, y - 1);
+                DiscoverStructure(x + 1, y - 1);
+                DiscoverStructure(x - 1, y);
+                DiscoverStructure(x, y);
+                DiscoverStructure(x + 1, y );
+                DiscoverStructure(x - 1, y + 1);
+                DiscoverStructure(x, y + 1);
+                DiscoverStructure(x + 1, y + 1);
             }
         }
     }
