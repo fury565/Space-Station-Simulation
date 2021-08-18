@@ -1,3 +1,8 @@
+0.0.5pa
+18/8/2021
+Implemented pathfinding algorithm that NPCs use when they get aggresive(only possible towards player for now and via F1 button).
+All live targets now have move speed variable which will affect how fast they can move(not yet implemented for pathfinding).
+Resolved bug that allowed two Live Targets to exist on the same tile.
 0.0.4pa
 16/8/2021
 All player constructable(later possible) tiles now identified as structures(no changes to how maps are loaded from textfiles). Structures are now displayed after current map level.
