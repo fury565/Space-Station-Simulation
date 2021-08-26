@@ -13,6 +13,7 @@ namespace JustSomeRandomRPGMechanics
         int per;
         int nat_armor;
         int move_speed;
+        int sight_radius;
         string name;
         protected int posx;
         protected int posy;
@@ -22,7 +23,7 @@ namespace JustSomeRandomRPGMechanics
         public Path currentPath;
         IInventory inventory;
         UsableItem weapon=new UsableItem((UsableItem)(Item)BaseNonTargettableEntityCollection.GetLootAtIndex(13));
-        public LiveTarget(int id,string name,int maxhp,int str,int dex,int intelligence,int per,int nat_armor,int move_speed,int posx=0,int posy=0)
+        public LiveTarget(int id,string name,int maxhp,int str,int dex,int intelligence,int per,int nat_armor,int move_speed,int sight_radius,int posx=0,int posy=0)
         {
             this.name = name;
             needs = new HealthSystem(maxhp, false);
@@ -32,10 +33,11 @@ namespace JustSomeRandomRPGMechanics
             this.per = per;
             this.nat_armor = nat_armor;
             this.move_speed = move_speed;
+            this.sight_radius = sight_radius;
             this.posx = posx;
             this.posy = posy;
             this.id = id;
-            aggroState = 1;
+            aggroState = 0;
             inventory = new Inventory();
         }
         public LiveTarget(LiveTarget original, int posx=0, int posy=0)
@@ -46,11 +48,13 @@ namespace JustSomeRandomRPGMechanics
             intelligence = original.intelligence;
             per = original.per;
             nat_armor = original.nat_armor;
+            move_speed = original.move_speed;
+            sight_radius = original.sight_radius;
             name = original.name;
             id = original.id;
             this.posx = posx;
             this.posy = posy;
-            aggroState = 1;
+            aggroState = 0;
             inventory = new Inventory();
         }
         public int HP
@@ -109,7 +113,7 @@ namespace JustSomeRandomRPGMechanics
         }
         public void SetAgressive()
         {
-            aggroState = 0;
+            aggroState = 1;
         }
         public IInventory GetInventory()
         {
@@ -156,6 +160,7 @@ namespace JustSomeRandomRPGMechanics
             {
                 if (currentPath.PathLeftToFollow())
                 {
+                    currentPath.DisplayFullPath();
                     Distance temp = currentPath.FollowPath();
                     PerformMovement(temp.X, temp.Y);
                 }
@@ -170,6 +175,7 @@ namespace JustSomeRandomRPGMechanics
         }
         protected void PerformMovement(int xdistance, int ydistance)
         {
+            
             Map currentlevel = MapLevelTracker.GetMapLevel(0);
             int targetx = posx+xdistance;
             int targety = posy+ydistance;
@@ -224,6 +230,14 @@ namespace JustSomeRandomRPGMechanics
         {
             weapon.UseItem(target, inventory);
         }
-        
+        public void CheckSurroundings()
+        {
+            if (Math.Sqrt(Math.Pow(Math.Abs(Player.GetPlayer().PosX - posx), 2) + Math.Pow(Math.Abs(Player.GetPlayer().PosY - posy), 2)) <= sight_radius)
+            {
+                aggroState = 1;
+            }
+            else
+                aggroState = 0;
+        }
     }
 }

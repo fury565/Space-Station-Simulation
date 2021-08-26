@@ -145,9 +145,13 @@ namespace JustSomeRandomRPGMechanics
             }
             else if (pressed.Key == ConsoleKey.F1)
             {
-               foreach(LiveTarget npc in MapLevelTracker.GetNPCTracker().GetNPCS())
+                Console.SetCursorPosition(0, 0);
+               foreach(Structure structure in MapLevelTracker.GetStructureTracker().GetStructures())
                 {
-                    npc.SetAgressive();
+                    foreach(Distance location in structure.componentLocation)
+                    {
+                        Console.WriteLine("           "+location.X +" "+ location.Y);
+                    }
                 }
             }
             else if (pressed.Key == ConsoleKey.Divide)

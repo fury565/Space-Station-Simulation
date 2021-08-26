@@ -17,17 +17,17 @@ namespace JustSomeRandomRPGMechanics
             }
             return player;
         }
-        private Player(int id, string name, int maxhp, int str, int dex, int intelligence, int per, int nat_armor, int posx,int posy) : base(id,name, maxhp, str, dex, intelligence, per, nat_armor, posx,posy)
+        private Player(int id, string name, int maxhp, int str, int dex, int intelligence, int per, int nat_armor,int sight_radius, int posx,int posy) : base(id,name, maxhp, str, dex, intelligence, per, nat_armor,sight_radius, posx,posy)
         {
             base.needs = new HealthSystem(maxhp, true);
         }
         static Player CreateNewPlayer()
         {
-            return new Player(42069,"Bob",30,5,5,5,5,2,0,0);
+            return new Player(42069,"Bob",30,5,5,5,5,2,20,0,0);
         }
         static Player CreateNewPlayer(string name,int posx,int posy)
         {
-            return new Player(42069,name, 30, 5, 5, 5, 5, 2, posx,posy);
+            return new Player(42069,name, 30, 5, 5, 5, 5, 2,20, posx,posy);
         }
         public void Examine(int xdistance, int ydistance)
         {

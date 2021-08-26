@@ -18,6 +18,7 @@ namespace JustSomeRandomRPGMechanics
         static public void NPCTurn()
         {
             Display.CloakNPCPosition();
+            MapLevelTracker.GetNPCTracker().SearchSurroundings();
             MapLevelTracker.GetNPCTracker().MoveAllNPCS();
         }
         static public void PerishFood()

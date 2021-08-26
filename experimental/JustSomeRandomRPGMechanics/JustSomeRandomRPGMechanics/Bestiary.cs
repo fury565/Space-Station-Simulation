@@ -22,7 +22,7 @@ namespace JustSomeRandomRPGMechanics
         }
         public static void LoadDemo()
         {
-            creatures.Add(new LiveTarget(2000,"Goblin",10, 2, 2,2,2,1,2));
+            creatures.Add(new LiveTarget(2000,"Goblin",10, 2, 2,2,2,1,2,15));
         }
         public static void ReadCreaturesFromTextFile(string filename)
         {
@@ -33,7 +33,7 @@ namespace JustSomeRandomRPGMechanics
                 while (line != null)
                 {
                     string[] splitted = line.Split(',');
-                    creatures.Add(new LiveTarget(Int32.Parse(splitted[0]), splitted[1], Int32.Parse(splitted[2]), Int32.Parse(splitted[3]), Int32.Parse(splitted[4]), Int32.Parse(splitted[5]), Int32.Parse(splitted[6]), Int32.Parse(splitted[7]), Int32.Parse(splitted[7])));
+                    creatures.Add(new LiveTarget(Int32.Parse(splitted[0]), splitted[1], Int32.Parse(splitted[2]), Int32.Parse(splitted[3]), Int32.Parse(splitted[4]), Int32.Parse(splitted[5]), Int32.Parse(splitted[6]), Int32.Parse(splitted[7]), Int32.Parse(splitted[8]), Int32.Parse(splitted[9])));
                     line = file.ReadLine();
                 }
             }

@@ -37,12 +37,12 @@ namespace JustSomeRandomRPGMechanics
             int x=0, y=0;
             for(int i = 0; i < npcs.Count; i++)
             {
-                if (npcs[i].GetAggroState() == 1)
+                if (npcs[i].GetAggroState() == 0)
                 {
                     x = NumberGenerator.Generate(-1, 1);
                     y = NumberGenerator.Generate(-1, 1);
                 }
-                else if(npcs[i].GetAggroState() == 0)
+                else if(npcs[i].GetAggroState() == 1)
                 {
                     npcs[i].currentPath=PathFinder.FindPath(npcs[i]);
                 }
@@ -52,6 +52,13 @@ namespace JustSomeRandomRPGMechanics
         public void MoveNPC(int index, int xdistance, int ydistance)
         {
             npcs[index].Move(xdistance,ydistance);
+        }
+        public void SearchSurroundings()
+        {
+            foreach(LiveTarget npc in npcs)
+            {
+                npc.CheckSurroundings();
+            }
         }
     }
 }

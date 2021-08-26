@@ -89,17 +89,23 @@ namespace JustSomeRandomRPGMechanics
         {
             if (x >= 0 && x < MapLevelTracker.GetMapLevel(0).SizeX && y >= 0 && y < MapLevelTracker.GetMapLevel(0).SizeY)
             {
-                if (!MapLevelTracker.GetMapLevel(0).GetTileAtLocation(x, y).GetTileDetails().Passable)
-                    return true;
                 Structure tempStruct = MapLevelTracker.GetStructureTracker().FindStructureWithComponentCoordinates(x, y);
                 if (tempStruct != null)
                 {
                     if (!tempStruct.designComponents[tempStruct.ReturnIndexOfComponentAtLocation(x, y)].GetTileDetails().Passable)
+                    {
                         return true;
+                    }
+                        
                     return false;
                 }
+                else if (!MapLevelTracker.GetMapLevel(0).GetTileAtLocation(x, y).GetTileDetails().Passable)
+                    return true;
+
                 else
-                    return false; 
+
+                    return false;
+                    
             } 
             else
             {

@@ -16,22 +16,34 @@ namespace JustSomeRandomRPGMechanics
         public void AddPath(Distance path)
         {
             pathway.Add(path);
+            counter++;
         }
         public Distance FollowPath()
         {
-            if (counter == pathway.Count)
+            if (counter ==0)
                 return new Distance(0, 0);
             else
             {
-                counter++;
-                return pathway[counter - 1];
+                counter--;
+                return pathway[counter-1];//00 is at the end?
             }
         }
         public bool PathLeftToFollow()
         {
-            if (counter == pathway.Count)
-                return false;
-            return true;
+            if (counter >1)//1 cause of above otherwise 0
+                return true;
+            return false;
+        }
+        public void DisplayFullPath()
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach(Distance dist in pathway)
+            {
+                sb.Append(dist.X);
+                sb.Append(dist.Y);
+                sb.Append(" ");
+            }
+            Display.DisplayDebugMessage(sb.ToString());
         }
     }
 }
