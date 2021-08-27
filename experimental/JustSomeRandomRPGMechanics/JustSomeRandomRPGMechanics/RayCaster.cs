@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace JustSomeRandomRPGMechanics
 {
@@ -10,14 +9,14 @@ namespace JustSomeRandomRPGMechanics
         static int lastExploredTile;
         static int perRadiusExploredCounter;
         static int previousRadiusExploredCounter;
-        static public List<Distance> FindVisibleTiles(int visionRadius,int startX,int startY)
+        static public List<Distance> FindVisibleTiles(int visionRadius, int startX, int startY)
         {
             perRadiusExploredCounter = 1;
             lastExploredTile = 0;
             previousRadiusExploredCounter = 0;
             visibleTiles = new List<Distance>();
             visibleTiles.Add(new Distance(startX, startY));
-            for(int i = 1; i <= visionRadius; i++)
+            for (int i = 1; i <= visionRadius; i++)
             {
                 ExploreFurther(perRadiusExploredCounter);
             }
@@ -25,7 +24,7 @@ namespace JustSomeRandomRPGMechanics
         }
         static private void ExploreFurther(int lastExploredCount)
         {
-            Console.WriteLine(" "+lastExploredTile+" "+lastExploredCount);
+            Console.WriteLine(" " + lastExploredTile + " " + lastExploredCount);
             previousRadiusExploredCounter = perRadiusExploredCounter;
             perRadiusExploredCounter = 0;
             for (int i = lastExploredTile; i < lastExploredTile + lastExploredCount; i++)
@@ -36,21 +35,17 @@ namespace JustSomeRandomRPGMechanics
         }
         static private void DiscoverExplorableTile(int index)
         {
-            Structure tempStruct = MapLevelTracker.GetStructureTracker().FindStructureWithComponentCoordinates(visibleTiles[index].X, visibleTiles[index].Y);
-            if (tempStruct != null)
+            if (visibleTiles[index].X > 0 && visibleTiles[index].X < MapLevelTracker.GetMapLevel(0).SizeX - 1 && visibleTiles[index].Y > 0 && visibleTiles[index].Y < MapLevelTracker.GetMapLevel(0).SizeY - 1)
             {
-                if (tempStruct.designComponents[tempStruct.ReturnIndexOfComponentAtLocation(visibleTiles[index].X, visibleTiles[index].Y)].GetTileDetails().Passable)
-                {
+                if (!isObstacleAtLocation(visibleTiles[index].X, visibleTiles[index].Y))
                     DiscoverAroundTile(index);
-                }
-            }
-            else if (MapLevelTracker.GetMapLevel(0).GetTileAtLocation(visibleTiles[index].X, visibleTiles[index].Y).GetTileDetails().Passable)
-                DiscoverAroundTile(index);
+;           }
+
 
         }
         static private void DiscoverAroundTile(int index)
         {
-            
+
             for (int i = -1; i <= 1; i++)
             {
                 for (int j = -1; j <= 1; j++)
@@ -60,21 +55,138 @@ namespace JustSomeRandomRPGMechanics
                         bool previouslyExplored = false;
                         for (int k = lastExploredTile; k < visibleTiles.Count; k++)
                         {
-                            if(visibleTiles[k].X==visibleTiles[index].X+i&& visibleTiles[k].Y == visibleTiles[index].Y + j)
+                            if (visibleTiles[k].X == visibleTiles[index].X + i && visibleTiles[k].Y == visibleTiles[index].Y + j)
                             {
                                 previouslyExplored = true;
                                 break;
                             }
                         }
-                        if (!previouslyExplored)
+                        if (!previouslyExplored && SeeableByPlayer(visibleTiles[index].X + i, visibleTiles[index].Y + j))
                         {
                             visibleTiles.Add(new Distance(visibleTiles[index].X + i, visibleTiles[index].Y + j));
                             perRadiusExploredCounter++;
                         }
-                        
+
                     }
                 }
             }
+        }
+        static private bool SeeableByPlayer(int x, int y)
+        {
+            int diffX = x-Player.GetPlayer().PosX;
+            int diffY = y-Player.GetPlayer().PosY;
+            int multiplication = 0;
+            int stepX = 0;
+            int resid = 0;
+            int stepY = 0;
+            bool seenable = true;
+            if (Math.Abs(diffX) >= Math.Abs(diffY))
+            {
+                multiplication = Math.Abs(diffY);
+                if (diffY == 0)
+                    multiplication = 1;
+                stepX = diffX / multiplication;
+                resid = diffX - stepX * multiplication;
+                stepY = diffY / multiplication;
+            }
+            else
+            {
+                multiplication = Math.Abs(diffX);
+                if (diffX == 0)
+                    multiplication = 1;
+                stepY = diffY / multiplication;
+                resid = diffY - stepY * multiplication;
+                stepX = diffX / multiplication;
+            }
+            if (Math.Abs(stepX) >= Math.Abs(stepY))
+            {
+                int leftX = stepX;
+                int residualCount = 0;
+                for (int i = 0; i < multiplication; i++)
+                {
+                    if (resid > residualCount)
+                    {
+                        leftX++;
+                        residualCount++;
+                    }
+                    while (leftX != 0)
+                    {
+                        if (isObstacleAtLocation(Player.GetPlayer().PosX + (stepX + (residualCount != resid ? (stepX > 0 ? 1 : -1) : 0) - leftX), Player.GetPlayer().PosY))
+                        {
+                            seenable = false;
+                            break;
+                        }
+                        if (leftX > 0)
+                            leftX--;
+                        else
+                            leftX++;
+                    }
+                    if (!seenable)
+                        return false;
+                    if (isObstacleAtLocation(Player.GetPlayer().PosX + stepX + (residualCount != resid ? (stepX > 0 ? 1 : -1) : 0), Player.GetPlayer().PosY + stepY)&&i!=multiplication-1)
+                    {
+                        seenable = false;
+                        break;
+                    }
+                    if (!seenable)
+                        return false;
+                    leftX = stepX;
+                }
+            }
+            else
+            {
+                int leftY = stepY;
+                int residualCount = 0;
+
+                for (int i = 0; i < multiplication; i++)
+                {
+                    if (resid > residualCount)
+                    {
+                        leftY++;
+                        residualCount++;
+                    }
+                    while (leftY != 0)
+                    {
+                        if (isObstacleAtLocation(Player.GetPlayer().PosX, Player.GetPlayer().PosY + (stepY + (residualCount != resid ? (stepY > 0 ? 1 : -1) : 0) - leftY)))
+                        {
+                            seenable = false;
+                            break;
+                        }
+                        if (leftY > 0)
+                            leftY--;
+                        else
+                            leftY++;
+                    }
+                    if (!seenable)
+                        return false;
+                    if (isObstacleAtLocation(Player.GetPlayer().PosX + stepX, Player.GetPlayer().PosY + stepY + (residualCount != resid ? (stepY > 0 ? 1 : -1) : 0))&&i!=multiplication-1)
+                    {
+                        seenable = false;
+                        break;
+                    }
+                    if (!seenable)
+                        return false;
+                    leftY = stepY;
+                }
+            }
+            return seenable;
+        }
+        static private bool isObstacleAtLocation(int x, int y)
+        {
+            Structure tempStruct = MapLevelTracker.GetStructureTracker().FindStructureWithComponentCoordinates(x, y);
+            if (tempStruct != null)
+            {
+                if (tempStruct.designComponents[tempStruct.ReturnIndexOfComponentAtLocation(x, y)].GetTileDetails().Passable)
+                {
+                    return false;
+                }
+                return true;
+            }
+            else if (MapLevelTracker.GetMapLevel(0).GetTileAtLocation(x, y).GetTileDetails().Passable)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
