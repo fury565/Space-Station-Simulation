@@ -145,14 +145,7 @@ namespace JustSomeRandomRPGMechanics
             }
             else if (pressed.Key == ConsoleKey.F1)
             {
-                Console.SetCursorPosition(0, 0);
-               foreach(Structure structure in MapLevelTracker.GetStructureTracker().GetStructures())
-                {
-                    foreach(Distance location in structure.componentLocation)
-                    {
-                        Console.WriteLine("           "+location.X +" "+ location.Y);
-                    }
-                }
+                Display.DisplayFOV(RayCaster.FindVisibleTiles(Player.GetPlayer().GetSightRadius(), Player.GetPlayer().PosX, Player.GetPlayer().PosY));
             }
             else if (pressed.Key == ConsoleKey.Divide)
             {

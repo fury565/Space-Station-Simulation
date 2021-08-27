@@ -107,6 +107,10 @@ namespace JustSomeRandomRPGMechanics
         {
             return 1;
         }
+        public int GetSightRadius()
+        {
+            return sight_radius;
+        }
         public int GetAggroState()
         {
             return aggroState;
@@ -160,7 +164,6 @@ namespace JustSomeRandomRPGMechanics
             {
                 if (currentPath.PathLeftToFollow())
                 {
-                    currentPath.DisplayFullPath();
                     Distance temp = currentPath.FollowPath();
                     PerformMovement(temp.X, temp.Y);
                 }
@@ -203,6 +206,11 @@ namespace JustSomeRandomRPGMechanics
                         tempStruct.ActivateComponent(tempStruct.ReturnIndexOfComponentAtLocation(targetx, targety));
                         MapLevelTracker.displayed = false;
                     }
+                }
+                else
+                {
+                    posx = targetx;
+                    posy = targety;
                 }
                 /*else//effects when entity steps on a tile
                 {

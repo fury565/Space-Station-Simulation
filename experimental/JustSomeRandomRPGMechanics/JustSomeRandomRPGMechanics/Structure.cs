@@ -26,7 +26,7 @@ namespace JustSomeRandomRPGMechanics
         public void ChangeComponent(TileType newComponent,int x,int y)
         {
             int index = ReturnIndexOfComponentAtLocation(x, y);
-            designComponents[index].ChangeTileType(newComponent);
+            ChangeComponent(newComponent, index);
         }
         public void ChangeComponent(TileType newComponent, int index)
         {

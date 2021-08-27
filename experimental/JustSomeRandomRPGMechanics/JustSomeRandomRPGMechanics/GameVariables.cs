@@ -6,7 +6,6 @@ namespace JustSomeRandomRPGMechanics
 {
     static class GameVariables
     {
-        public static int screenLenght=30;
         public static double HPGrowthRate = 2.2;
         public static double MPGrowthRate = 1.9;
         public static double LevelXPCostModifier = 1.3;

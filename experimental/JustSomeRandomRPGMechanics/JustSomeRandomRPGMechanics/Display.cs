@@ -222,5 +222,20 @@ namespace JustSomeRandomRPGMechanics
             else
                 Console.Write(temp.designComponents[temp.ReturnIndexOfComponentAtLocation(player.PosX, player.PosY)].GetTileDetails().mapTag);
         }
+        public static void DisplayFOV(List<Distance> visibleTiles)
+        {
+            Console.Clear();
+            foreach(Distance location in visibleTiles)
+            {
+                Console.SetCursorPosition(GameVariables.WindowWidth-GameVariables.MapDisplayWidth+ location.X, location.Y);
+                Structure tempStruct = MapLevelTracker.GetStructureTracker().FindStructureWithComponentCoordinates(location.X, location.Y);
+                if (tempStruct != null)
+                {
+                    Console.Write(tempStruct.designComponents[tempStruct.ReturnIndexOfComponentAtLocation(location.X, location.Y)].GetTileDetails().mapTag);
+                }
+                else
+                    Console.Write(MapLevelTracker.GetMapLevel(0).GetTileAtLocation(location.X, location.Y).GetTileDetails().mapTag);
+            }
+        }
     }
 }

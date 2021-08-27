@@ -25,12 +25,12 @@ namespace JustSomeRandomRPGMechanics
             else
             {
                 counter--;
-                return pathway[counter-1];//00 is at the end?
+                return pathway[counter];
             }
         }
         public bool PathLeftToFollow()
         {
-            if (counter >1)//1 cause of above otherwise 0
+            if (counter >0)
                 return true;
             return false;
         }

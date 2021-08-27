@@ -18,17 +18,18 @@ namespace JustSomeRandomRPGMechanics
             hell.Add(new TestPath(0, 0,player.PosX,player.PosY,new Distance(npc.PosX,npc.PosY)));
             valueLocations.Add(new Distance(npc.PosX, npc.PosY));
             isTaken.Add(false);
-            
+            int loopCounter = 0;
             while (true)
             {
+                loopCounter++;
                 DiscoverAroundTile(valueLocations[IndexOfSmallestDistanceValue()].X, valueLocations[IndexOfSmallestDistanceValue()].Y,npc);
                 foreach(TestPath path in hell)
                 {
-                    if (path.CalculateDistanceToTarget() == 0)
+                    if (path.CalculateDistanceToTarget() == 0||loopCounter>1000)//loopCounter useless after vision is implemented
                     {
                         Path realPath = new Path();
                         TestPath guide = path;
-                        while (guide!= null)
+                        while (guide.path!= null)
                         {
                             realPath.AddPath(guide.distance);
                             guide = guide.path;

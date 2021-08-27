@@ -61,7 +61,7 @@ namespace JustSomeRandomRPGMechanics
                 Console.Clear();
                 Display.DisplayMessage(GetContents());
                 //Display.DisplayMessage(inventory[counter].GetLootDescription());   Need to create method and attribute for actual item description
-                Console.SetCursorPosition(GameVariables.screenLenght-2, 0);
+                Console.SetCursorPosition(30-2, 0);//create method that searches biggest item name
                 Display.DisplayMessage("<");
                 ConsoleKeyInfo pressed = Console.ReadKey();
                 if (pressed.Key == ConsoleKey.DownArrow)

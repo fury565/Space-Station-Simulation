@@ -33,17 +33,17 @@ namespace JustSomeRandomRPGMechanics
         {
             int targetx = posx+ xdistance;
             int targety = posy+ydistance;
-                Display.DisplayDebugMessage("Targetable tile");
-                Structure tempStruct = MapLevelTracker.GetStructureTracker().FindStructureWithComponentCoordinates(targetx,targety);
-                if (tempStruct != null)
+            Display.DisplayDebugMessage("Targetable tile");
+            Structure tempStruct = MapLevelTracker.GetStructureTracker().FindStructureWithComponentCoordinates(targetx,targety);
+            if (tempStruct != null)
+            {
+                Display.DisplayDebugMessage("Structure found");
+                if (tempStruct.designComponents[tempStruct.ReturnIndexOfComponentAtLocation(targetx, targety)].GetTileDetails().Interactable)
                 {
-                    Display.DisplayDebugMessage("Structure found");
-                    if (tempStruct.designComponents[tempStruct.ReturnIndexOfComponentAtLocation(targetx, targety)].GetTileDetails().Interactable)
-                    {
-                        tempStruct.ActivateComponent(tempStruct.ReturnIndexOfComponentAtLocation(targetx, targety));
-                        MapLevelTracker.displayed = false;
-                    }
+                    tempStruct.ActivateComponent(tempStruct.ReturnIndexOfComponentAtLocation(targetx, targety));
+                    MapLevelTracker.displayed = false;
                 }
+            }
             
         }
         public override void Move(int xdistance, int ydistance)
@@ -85,7 +85,7 @@ namespace JustSomeRandomRPGMechanics
             while (true)
             {
                 //Display.DisplayMessage(inventory[counter].GetLootDescription());   Need to create method and attribute for actual item description
-                Console.SetCursorPosition(GameVariables.screenLenght - 2, 1);
+                Console.SetCursorPosition(30 - 2, 1);//create method that returns biggest item name in inventory
                 Display.DisplayMessage("<");
                 ConsoleKeyInfo pressed = Console.ReadKey();
                 if (pressed.Key == ConsoleKey.DownArrow)
