@@ -1,3 +1,7 @@
+0.0.6pa
+29/8/2021
+Fixed pathfinding to actually work now. Implemented fog of war for both NPCs and player but not ability for player to memorise structures outside his field of view.
+Performance dropped slightly and screen refreshing is visible. Possible weird angle of visibility.
 0.0.5pa
 18/8/2021
 Implemented pathfinding algorithm that NPCs use when they get aggresive(only possible towards player for now and via F1 button).

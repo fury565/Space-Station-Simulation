@@ -1,0 +1,7 @@
+open space,.,1,1,0,open space
+steel floor,F,1,1,0,open space
+steel wall,X,0,0,0,steel floor
+steel door(closed),C,0,0,1,Open,steel floor
+steel door(open),O,1,0,1,Close,steel floor
+console,!,1,1,1,StructureCommand,steel floor
+void, ,0,0,0,void
