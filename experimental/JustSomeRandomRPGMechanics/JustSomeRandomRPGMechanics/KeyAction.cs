@@ -145,7 +145,9 @@ namespace JustSomeRandomRPGMechanics
             }
             else if (pressed.Key == ConsoleKey.F1)
             {
-                Display.DisplayFOV(RayCaster.FindVisibleTiles(Player.GetPlayer().GetSightRadius(), Player.GetPlayer().PosX, Player.GetPlayer().PosY));
+                //Display.DisplayFOV(RayCaster.FindVisibleTiles(Player.GetPlayer().GetSightRadius(), Player.GetPlayer().PosX, Player.GetPlayer().PosY));
+                Display.DisplayFOV(RayCaster.ExperimentalFind(Player.GetPlayer().GetSightRadius(), Player.GetPlayer().PosX, Player.GetPlayer().PosY));
+
             }
             else if (pressed.Key == ConsoleKey.Divide)
             {

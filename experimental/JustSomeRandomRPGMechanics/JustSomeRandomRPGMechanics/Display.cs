@@ -38,15 +38,17 @@ namespace JustSomeRandomRPGMechanics
 
         public static void DisplayWorldAroundPlayer()
         {
-            if (!MapLevelTracker.displayed)
-            {
+            //if (!MapLevelTracker.displayed)
+            //{
                 Map currentLevel = MapLevelTracker.GetMapLevel(0);
                 DisplayWorldLevel(currentLevel);//add map level position variable for player if you need to support multiple levels
-                DisplayStructures();
-                MapLevelTracker.displayed=true;
-            }
-            HighlightLoot();
-            DisplayWorldEntities();
+            List<Distance> visibleToPlayer = RayCaster.ExperimentalFind(Player.GetPlayer().GetSightRadius(), Player.GetPlayer().PosX, Player.GetPlayer().PosY);
+            DisplayStructures(visibleToPlayer);
+            DisplayFOV(visibleToPlayer);
+            MapLevelTracker.displayed=true;
+            //}
+            HighlightLoot(visibleToPlayer);
+            DisplayWorldEntities(visibleToPlayer);
         }
         public static void DisplayWorldLevel(Map map)
         {
@@ -76,20 +78,20 @@ namespace JustSomeRandomRPGMechanics
             for (int j = yoffset; j < yoffset+ylimit; j++)
             {
                 Console.BackgroundColor = ConsoleColor.Black;
-                test.Append(new String(' ', GameVariables.WindowWidth - GameVariables.MapDisplayWidth));
+                Console.Write(new String(' ', GameVariables.WindowWidth - GameVariables.MapDisplayWidth));
+                Console.BackgroundColor = ConsoleColor.DarkGray;
                 for (int i = xoffset; i < xoffset + xlimit; i++)
                 {
                     test.Append(map.GetTileAtLocation(i, j).GetTileDetails().mapTag);
                 }
-                test.AppendLine();
-                
+                Console.WriteLine(test.ToString());
+                test.Clear();
             }
             
-            Console.WriteLine(test.ToString());
-
+            Console.BackgroundColor = ConsoleColor.Black;
 
         }
-        public static void DisplayStructures()
+        public static void DisplayStructures(List<Distance> visibleToPlayer)
         {
             Map currentmap = MapLevelTracker.GetMapLevel(0);
             int xoffset = Player.GetPlayer().PosX - GameVariables.MapDisplayWidth;
@@ -107,13 +109,20 @@ namespace JustSomeRandomRPGMechanics
                 int counter = 0;
                 foreach(Distance location in structure.componentLocation)
                 {
-                    Console.SetCursorPosition(GameVariables.WindowWidth - GameVariables.MapDisplayWidth+xoffset + location.X, yoffset+location.Y);
-                    Console.Write(structure.designComponents[counter].GetTileDetails().mapTag);
+                    foreach(Distance playerVision in visibleToPlayer)
+                    {
+                        if(location.X==playerVision.X&& location.Y == playerVision.Y)
+                        {
+                            Console.SetCursorPosition(GameVariables.WindowWidth - GameVariables.MapDisplayWidth + xoffset + location.X, yoffset + location.Y);
+                            Console.Write(structure.designComponents[counter].GetTileDetails().mapTag);
+                        }
+
+                    }
                     counter++;
                 }
             }
         }
-        public static void DisplayWorldEntities()
+        public static void DisplayWorldEntities(List<Distance> visibleToPlayer)
         {
             Player player = Player.GetPlayer();
             Console.BackgroundColor = ConsoleColor.Black;
@@ -123,11 +132,19 @@ namespace JustSomeRandomRPGMechanics
             Console.WriteLine(player.ShowStatus());
             foreach (LiveTarget npc in MapLevelTracker.GetNPCTracker().GetNPCS())
             {
-                Console.SetCursorPosition(GameVariables.WindowWidth - GameVariables.MapDisplayWidth+npc.PosX, npc.PosY);
-                Console.Write("N");
+                foreach(Distance location in visibleToPlayer)
+                {
+                    if (npc.PosX == location.X && npc.PosY == location.Y)
+                    {
+                        Console.SetCursorPosition(GameVariables.WindowWidth - GameVariables.MapDisplayWidth + npc.PosX, npc.PosY);
+                        Console.Write("N");
+                        break;
+                    }
+                }
+                
             }
         }
-        public static void HighlightLoot()
+        public static void HighlightLoot(List<Distance> visibleToPlayer)
         {
             Map world = MapLevelTracker.GetMapLevel(0);
             int xoffset = Player.GetPlayer().PosX - GameVariables.MapDisplayWidth;
@@ -149,16 +166,12 @@ namespace JustSomeRandomRPGMechanics
             try
             {
                 Console.BackgroundColor = ConsoleColor.Blue;
-                for (int i = xoffset; i < xlimit; i++)//-1 probably hardcode
+                foreach (Distance location in visibleToPlayer)
                 {
-                    for (int j = yoffset; j < ylimit; j++)
+                    if (world.GetTileAtLocation(location.X, location.Y).ReturnContents().Count != 0)
                     {
-                        if (world.GetTileAtLocation(i, j).ReturnContents().Count != 0)
-                        {
-                            Console.SetCursorPosition(GameVariables.WindowWidth - GameVariables.MapDisplayWidth+i, j);
-                            Console.Write(world.GetTileAtLocation(i, j).GetTileDetails().mapTag);
-                        }
-                        
+                        Console.SetCursorPosition(GameVariables.WindowWidth - GameVariables.MapDisplayWidth+location.X, location.Y);
+                        Console.Write(world.GetTileAtLocation(location.X, location.Y).GetTileDetails().mapTag);
                     }
                     //DisplayDebugMessage(i.ToString());
                 }
@@ -224,7 +237,7 @@ namespace JustSomeRandomRPGMechanics
         }
         public static void DisplayFOV(List<Distance> visibleTiles)
         {
-            Console.Clear();
+            //Console.Clear();
             foreach(Distance location in visibleTiles)
             {
                 Console.SetCursorPosition(GameVariables.WindowWidth-GameVariables.MapDisplayWidth+ location.X, location.Y);

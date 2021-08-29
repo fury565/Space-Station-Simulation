@@ -22,6 +22,25 @@ namespace JustSomeRandomRPGMechanics
             }
             return visibleTiles;
         }
+        static public List<Distance> ExperimentalFind(int visionRadius, int startX, int startY)
+        {
+            visibleTiles = new List<Distance>();
+            for(int i = -visionRadius; i <= visionRadius; i++)
+            {
+                for(int j=-visionRadius; j <= visionRadius; j++)
+                {
+                    if (startX+i >= 0 && startX+i <= MapLevelTracker.GetMapLevel(0).SizeX - 1 && startY + j >= 0 && startY + j <= MapLevelTracker.GetMapLevel(0).SizeY - 1)
+                    {
+                        if (SeeableByPlayer(startX + i, startY + j))
+                        {
+                            visibleTiles.Add(new Distance(startX + i, startY + j));
+                        }
+                    }
+                        
+                }
+            }
+            return visibleTiles;
+        }
         static private void ExploreFurther(int lastExploredCount)
         {
             Console.WriteLine(" " + lastExploredTile + " " + lastExploredCount);
@@ -98,20 +117,27 @@ namespace JustSomeRandomRPGMechanics
                 resid = diffY - stepY * multiplication;
                 stepX = diffX / multiplication;
             }
-            if (Math.Abs(stepX) >= Math.Abs(stepY))
+            if (Math.Abs(diffX) >= Math.Abs(diffY))
             {
                 int leftX = stepX;
                 int residualCount = 0;
                 for (int i = 0; i < multiplication; i++)
                 {
-                    if (resid > residualCount)
+                    if (Math.Abs(resid) > Math.Abs(residualCount))
                     {
-                        leftX++;
-                        residualCount++;
+                        if (resid > 0)
+                        {
+                            leftX++;
+                        }
+                        else if (resid < 0)
+                        {
+                            leftX--;
+                        }
+                        
                     }
                     while (leftX != 0)
                     {
-                        if (isObstacleAtLocation(Player.GetPlayer().PosX + (stepX + (residualCount != resid ? (stepX > 0 ? 1 : -1) : 0) - leftX), Player.GetPlayer().PosY))
+                        if (isObstacleAtLocation(Player.GetPlayer().PosX +residualCount+ stepX * i + (stepX + (residualCount != resid ? (stepX > 0 ? 1 : -1) : 0) - leftX), Player.GetPlayer().PosY + stepY * i))
                         {
                             seenable = false;
                             break;
@@ -123,14 +149,24 @@ namespace JustSomeRandomRPGMechanics
                     }
                     if (!seenable)
                         return false;
-                    if (isObstacleAtLocation(Player.GetPlayer().PosX + stepX + (residualCount != resid ? (stepX > 0 ? 1 : -1) : 0), Player.GetPlayer().PosY + stepY)&&i!=multiplication-1)
+                    if (isObstacleAtLocation(Player.GetPlayer().PosX +residualCount+ stepX + stepX * i + (residualCount != resid ? (stepX > 0 ? 1 : -1) : 0), Player.GetPlayer().PosY + stepY + stepY * i) &&i!=multiplication-1)
                     {
                         seenable = false;
                         break;
                     }
-                    if (!seenable)
-                        return false;
                     leftX = stepX;
+                    if (Math.Abs(resid) > Math.Abs(residualCount))
+                    {
+                        if (resid > 0)
+                        {
+                            residualCount++;
+                        }
+                        else if (resid < 0)
+                        {
+                            residualCount--;
+                        }
+
+                    }
                 }
             }
             else
@@ -140,14 +176,21 @@ namespace JustSomeRandomRPGMechanics
 
                 for (int i = 0; i < multiplication; i++)
                 {
-                    if (resid > residualCount)
+                    if (Math.Abs(resid) > Math.Abs(residualCount))
                     {
-                        leftY++;
-                        residualCount++;
+                        if (resid > 0)
+                        {
+                            leftY++;
+                        }
+                        else if (resid < 0)
+                        {
+                            leftY--;
+                        }
+
                     }
                     while (leftY != 0)
                     {
-                        if (isObstacleAtLocation(Player.GetPlayer().PosX, Player.GetPlayer().PosY + (stepY + (residualCount != resid ? (stepY > 0 ? 1 : -1) : 0) - leftY)))
+                        if (isObstacleAtLocation(Player.GetPlayer().PosX+ stepX *i, Player.GetPlayer().PosY + residualCount+(stepY+ stepY *i + (residualCount != resid ? (stepY > 0 ? 1 : -1) : 0) - leftY)))
                         {
                             seenable = false;
                             break;
@@ -159,34 +202,51 @@ namespace JustSomeRandomRPGMechanics
                     }
                     if (!seenable)
                         return false;
-                    if (isObstacleAtLocation(Player.GetPlayer().PosX + stepX, Player.GetPlayer().PosY + stepY + (residualCount != resid ? (stepY > 0 ? 1 : -1) : 0))&&i!=multiplication-1)
+                    if (isObstacleAtLocation(Player.GetPlayer().PosX + stepX+stepX*i, Player.GetPlayer().PosY + stepY + stepY * i + residualCount + residualCount+(residualCount != resid ? (stepY > 0 ? 1 : -1) : 0))&&i!=multiplication-1)
                     {
                         seenable = false;
                         break;
                     }
-                    if (!seenable)
-                        return false;
                     leftY = stepY;
+                    if (Math.Abs(resid) > Math.Abs(residualCount))
+                    {
+                        if (resid > 0)
+                        {
+                            residualCount++;
+                        }
+                        else if (resid < 0)
+                        {
+                            residualCount--;
+                        }
+
+                    }
                 }
             }
             return seenable;
         }
         static private bool isObstacleAtLocation(int x, int y)
         {
-            Structure tempStruct = MapLevelTracker.GetStructureTracker().FindStructureWithComponentCoordinates(x, y);
-            if (tempStruct != null)
+            try
             {
-                if (tempStruct.designComponents[tempStruct.ReturnIndexOfComponentAtLocation(x, y)].GetTileDetails().Passable)
+                Structure tempStruct = MapLevelTracker.GetStructureTracker().FindStructureWithComponentCoordinates(x, y);
+                if (tempStruct != null)
+                {
+                    if (tempStruct.designComponents[tempStruct.ReturnIndexOfComponentAtLocation(x, y)].GetTileDetails().Passable)
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                else if (MapLevelTracker.GetMapLevel(0).GetTileAtLocation(x, y).GetTileDetails().Passable)
                 {
                     return false;
                 }
                 return true;
             }
-            else if (MapLevelTracker.GetMapLevel(0).GetTileAtLocation(x, y).GetTileDetails().Passable)
+            catch (IndexOutOfRangeException)
             {
-                return false;
+                return true;
             }
-            return true;
         }
     }
 }
