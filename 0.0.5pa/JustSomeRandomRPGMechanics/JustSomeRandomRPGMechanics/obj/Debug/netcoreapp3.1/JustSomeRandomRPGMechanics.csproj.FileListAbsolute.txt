@@ -95,3 +95,24 @@ C:\Users\Fury\Documents\GitHub\Space Station Simulation\Space-Station-Simulation
 C:\Users\Fury\Documents\GitHub\Space Station Simulation\Space-Station-Simulation\experimental\JustSomeRandomRPGMechanics\JustSomeRandomRPGMechanics\obj\Debug\netcoreapp3.1\JustSomeRandomRPGMechanics.dll
 C:\Users\Fury\Documents\GitHub\Space Station Simulation\Space-Station-Simulation\experimental\JustSomeRandomRPGMechanics\JustSomeRandomRPGMechanics\obj\Debug\netcoreapp3.1\JustSomeRandomRPGMechanics.pdb
 C:\Users\Fury\Documents\GitHub\Space Station Simulation\Space-Station-Simulation\experimental\JustSomeRandomRPGMechanics\JustSomeRandomRPGMechanics\obj\Debug\netcoreapp3.1\JustSomeRandomRPGMechanics.genruntimeconfig.cache
+C:\Users\Fury\Documents\GitHub\Space-Station-Simulation\0.0.5pa\JustSomeRandomRPGMechanics\JustSomeRandomRPGMechanics\bin\Debug\netcoreapp3.1\JustSomeRandomRPGMechanics.exe
+C:\Users\Fury\Documents\GitHub\Space-Station-Simulation\0.0.5pa\JustSomeRandomRPGMechanics\JustSomeRandomRPGMechanics\bin\Debug\netcoreapp3.1\JustSomeRandomRPGMechanics.deps.json
+C:\Users\Fury\Documents\GitHub\Space-Station-Simulation\0.0.5pa\JustSomeRandomRPGMechanics\JustSomeRandomRPGMechanics\bin\Debug\netcoreapp3.1\JustSomeRandomRPGMechanics.runtimeconfig.json
+C:\Users\Fury\Documents\GitHub\Space-Station-Simulation\0.0.5pa\JustSomeRandomRPGMechanics\JustSomeRandomRPGMechanics\bin\Debug\netcoreapp3.1\JustSomeRandomRPGMechanics.runtimeconfig.dev.json
+C:\Users\Fury\Documents\GitHub\Space-Station-Simulation\0.0.5pa\JustSomeRandomRPGMechanics\JustSomeRandomRPGMechanics\bin\Debug\netcoreapp3.1\JustSomeRandomRPGMechanics.dll
+C:\Users\Fury\Documents\GitHub\Space-Station-Simulation\0.0.5pa\JustSomeRandomRPGMechanics\JustSomeRandomRPGMechanics\bin\Debug\netcoreapp3.1\JustSomeRandomRPGMechanics.pdb
+C:\Users\Fury\Documents\GitHub\Space-Station-Simulation\0.0.5pa\JustSomeRandomRPGMechanics\JustSomeRandomRPGMechanics\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+C:\Users\Fury\Documents\GitHub\Space-Station-Simulation\0.0.5pa\JustSomeRandomRPGMechanics\JustSomeRandomRPGMechanics\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
+C:\Users\Fury\Documents\GitHub\Space-Station-Simulation\0.0.5pa\JustSomeRandomRPGMechanics\JustSomeRandomRPGMechanics\bin\Debug\netcoreapp3.1\System.Windows.Extensions.dll
+C:\Users\Fury\Documents\GitHub\Space-Station-Simulation\0.0.5pa\JustSomeRandomRPGMechanics\JustSomeRandomRPGMechanics\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Fury\Documents\GitHub\Space-Station-Simulation\0.0.5pa\JustSomeRandomRPGMechanics\JustSomeRandomRPGMechanics\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\Fury\Documents\GitHub\Space-Station-Simulation\0.0.5pa\JustSomeRandomRPGMechanics\JustSomeRandomRPGMechanics\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\Fury\Documents\GitHub\Space-Station-Simulation\0.0.5pa\JustSomeRandomRPGMechanics\JustSomeRandomRPGMechanics\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+C:\Users\Fury\Documents\GitHub\Space-Station-Simulation\0.0.5pa\JustSomeRandomRPGMechanics\JustSomeRandomRPGMechanics\obj\Debug\netcoreapp3.1\JustSomeRandomRPGMechanics.csproj.AssemblyReference.cache
+C:\Users\Fury\Documents\GitHub\Space-Station-Simulation\0.0.5pa\JustSomeRandomRPGMechanics\JustSomeRandomRPGMechanics\obj\Debug\netcoreapp3.1\JustSomeRandomRPGMechanics.AssemblyInfoInputs.cache
+C:\Users\Fury\Documents\GitHub\Space-Station-Simulation\0.0.5pa\JustSomeRandomRPGMechanics\JustSomeRandomRPGMechanics\obj\Debug\netcoreapp3.1\JustSomeRandomRPGMechanics.AssemblyInfo.cs
+C:\Users\Fury\Documents\GitHub\Space-Station-Simulation\0.0.5pa\JustSomeRandomRPGMechanics\JustSomeRandomRPGMechanics\obj\Debug\netcoreapp3.1\JustSomeRandomRPGMechanics.csproj.CoreCompileInputs.cache
+C:\Users\Fury\Documents\GitHub\Space-Station-Simulation\0.0.5pa\JustSomeRandomRPGMechanics\JustSomeRandomRPGMechanics\obj\Debug\netcoreapp3.1\JustSomeRandomRPGMechanics.csproj.CopyComplete
+C:\Users\Fury\Documents\GitHub\Space-Station-Simulation\0.0.5pa\JustSomeRandomRPGMechanics\JustSomeRandomRPGMechanics\obj\Debug\netcoreapp3.1\JustSomeRandomRPGMechanics.dll
+C:\Users\Fury\Documents\GitHub\Space-Station-Simulation\0.0.5pa\JustSomeRandomRPGMechanics\JustSomeRandomRPGMechanics\obj\Debug\netcoreapp3.1\JustSomeRandomRPGMechanics.pdb
+C:\Users\Fury\Documents\GitHub\Space-Station-Simulation\0.0.5pa\JustSomeRandomRPGMechanics\JustSomeRandomRPGMechanics\obj\Debug\netcoreapp3.1\JustSomeRandomRPGMechanics.genruntimeconfig.cache
